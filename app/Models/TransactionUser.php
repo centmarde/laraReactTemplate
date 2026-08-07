@@ -2,26 +2,24 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
-class Task extends Model
+class TransactionUser extends Model
 {
-    protected $table = 'tasks';
-
-    protected $primaryKey = 'id';
+    protected $table = 'transaction_user';
 
     protected $fillable = [
-        'name',
-        'description',
+        'transaction_id',
         'user_id',
     ];
 
-    /**
-     * The user that owns this task.
-     */
+    public function transaction(): BelongsTo
+    {
+        return $this->belongsTo(Transaction::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

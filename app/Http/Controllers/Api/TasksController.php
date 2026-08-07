@@ -13,7 +13,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        return response()->json(Task::all());
+        return response()->json(Task::with('user:id,name')->get());
     }
 
     /**
@@ -37,7 +37,9 @@ class TasksController extends Controller
      */
     public function show(string $id)
     {
-        return response()->json(Task::findOrFail($id));
+        return response()->json(
+            Task::with('user:id,name')->findOrFail($id)
+        );
     }
 
     /**

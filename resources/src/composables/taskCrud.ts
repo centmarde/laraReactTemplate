@@ -7,6 +7,11 @@ export interface Task {
     description: string;
     created_at: string;
     updated_at: string;
+    // Eager-loaded relationship: only present when the API includes it.
+    user?: {
+        id: number;
+        name: string;
+    };
 }
 
 export interface TaskForm {

@@ -1,28 +1,28 @@
-import { useTaskCrud } from "../composables/taskCrud";
+import { useUserCrud } from "../composables/userCrud";
 
-const CrudView = () => {
+const UserCrudView = () => {
     const {
-        tasks,
+        users,
         loading,
         error,
         editingId,
         form,
         saving,
         formError,
-        fetchTasks,
+        fetchUsers,
         handleSubmit,
         handleFieldChange,
         resetForm,
         startEdit,
         handleDelete,
-    } = useTaskCrud();
+    } = useUserCrud();
 
     const inputClass =
         "w-full rounded border border-gray-300 p-2 focus:border-blue-500 focus:outline-none";
 
     return (
         <div>
-            <h1 className="text-center">CRUD View</h1>
+            <h1 className="text-center">Users CRUD View</h1>
 
             <div className="mx-auto max-w-2xl p-4">
                 {/* Create / Edit form */}
@@ -32,24 +32,9 @@ const CrudView = () => {
                 >
                     <h2 className="text-lg font-semibold">
                         {editingId !== null
-                            ? `Edit Task #${editingId}`
-                            : "New Task"}
+                            ? `Edit User #${editingId}`
+                            : "New User"}
                     </h2>
-
-                    <div>
-                        <label className="mb-1 block text-sm">User ID</label>
-                        <input
-                            type="number"
-                            min={1}
-                            required
-                            value={form.user_id}
-                            onChange={(e) =>
-                                handleFieldChange("user_id", e.target.value)
-                            }
-                            className={inputClass}
-                            placeholder="e.g. 1"
-                        />
-                    </div>
 
                     <div>
                         <label className="mb-1 block text-sm">Name</label>
@@ -61,22 +46,39 @@ const CrudView = () => {
                                 handleFieldChange("name", e.target.value)
                             }
                             className={inputClass}
-                            placeholder="Task name"
+                            placeholder="User name"
                         />
                     </div>
 
                     <div>
-                        <label className="mb-1 block text-sm">
-                            Description
-                        </label>
-                        <textarea
-                            rows={3}
-                            value={form.description}
+                        <label className="mb-1 block text-sm">Email</label>
+                        <input
+                            type="email"
+                            required
+                            value={form.email}
                             onChange={(e) =>
-                                handleFieldChange("description", e.target.value)
+                                handleFieldChange("email", e.target.value)
                             }
                             className={inputClass}
-                            placeholder="Optional description"
+                            placeholder="user@example.com"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="mb-1 block text-sm">Password</label>
+                        <input
+                            type="password"
+                            required={editingId === null}
+                            value={form.password}
+                            onChange={(e) =>
+                                handleFieldChange("password", e.target.value)
+                            }
+                            className={inputClass}
+                            placeholder={
+                                editingId !== null
+                                    ? "Leave blank to keep current"
+                                    : "Password"
+                            }
                         />
                     </div>
 
@@ -93,8 +95,8 @@ const CrudView = () => {
                             {saving
                                 ? "Saving…"
                                 : editingId !== null
-                                  ? "Update Task"
-                                  : "Create Task"}
+                                  ? "Update User"
+                                  : "Create User"}
                         </button>
                         {editingId !== null && (
                             <button
@@ -112,7 +114,7 @@ const CrudView = () => {
                 <div className="mb-4 flex items-center gap-4">
                     <button
                         className="rounded bg-blue-600 px-4 py-2 text-white"
-                        onClick={fetchTasks}
+                        onClick={fetchUsers}
                     >
                         Reload
                     </button>
@@ -121,28 +123,28 @@ const CrudView = () => {
                 </div>
 
                 <ul className="space-y-2">
-                    {tasks.map((task) => (
+                    {users.map((user) => (
                         <li
-                            key={task.id}
+                            key={user.id}
                             className="flex items-center justify-between rounded border p-3"
                         >
                             <div>
                                 <div className="font-semibold">
-                                    #{task.id} {task.name}
+                                    #{user.id} {user.name}
                                 </div>
                                 <div className="text-sm text-gray-600">
-                                    {task.description || "—"}
+                                    {user.email || "—"}
                                 </div>
                             </div>
                             <div className="flex gap-2">
                                 <button
-                                    onClick={() => startEdit(task)}
+                                    onClick={() => startEdit(user)}
                                     className="rounded bg-yellow-500 px-3 py-1 text-white"
                                 >
                                     Edit
                                 </button>
                                 <button
-                                    onClick={() => handleDelete(task.id)}
+                                    onClick={() => handleDelete(user.id)}
                                     className="rounded bg-red-600 px-3 py-1 text-white"
                                 >
                                     Delete
@@ -152,12 +154,13 @@ const CrudView = () => {
                     ))}
                 </ul>
 
-                {!loading && tasks.length === 0 && !error && (
-                    <p className="text-gray-500">No tasks found.</p>
+                {!loading && users.length === 0 && !error && (
+                    <p className="text-gray-500">No users found.</p>
                 )}
             </div>
         </div>
     );
 };
 
-export default CrudView;
+export default UserCrudView;
+

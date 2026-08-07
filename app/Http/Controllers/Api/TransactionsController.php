@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\transactions;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionsController extends Controller
@@ -13,7 +13,7 @@ class TransactionsController extends Controller
      */
     public function index()
     {
-         return response()->json(Transactions::all());
+        return response()->json(Transaction::all());
     }
 
     /**
@@ -24,11 +24,10 @@ class TransactionsController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'user_id' => ['required', 'exists:users,id'],
             'image_path' => ['nullable', 'string'],
         ]);
 
-        $transaction = Transactions::create($validated);
+        $transaction = Transaction::create($validated);
 
         return response()->json($transaction, 201);
     }
@@ -36,7 +35,7 @@ class TransactionsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   /*  public function store(Request $request)
+    /*  public function store(Request $request)
     {
         //
     } */
@@ -46,7 +45,7 @@ class TransactionsController extends Controller
      */
     public function show(string $id)
     {
-         return response()->json(Transactions::findOrFail($id));
+        return response()->json(Transaction::findOrFail($id));
     }
 
     /**
@@ -62,7 +61,7 @@ class TransactionsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $transaction = Transactions::findOrFail($id);
+        $transaction = Transaction::findOrFail($id);
 
         $validated = $request->validate([
             'name' => ['sometimes', 'string', 'max:255'],
@@ -80,7 +79,7 @@ class TransactionsController extends Controller
      */
     public function destroy(string $id)
     {
-        Transactions::findOrFail($id)->delete();
+        Transaction::findOrFail($id)->delete();
 
         return response()->json(null, 204);
     }

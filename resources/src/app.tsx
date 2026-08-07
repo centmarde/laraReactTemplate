@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import CrudView from "./pages/crud-view";
+import LandingView from "./pages/landing-view";
 
 const root = document.getElementById("app");
 
 if (root) {
     ReactDOM.createRoot(root).render(
         <React.StrictMode>
-            <CrudView />
+            <LandingView />
         </React.StrictMode>,
     );
 }
