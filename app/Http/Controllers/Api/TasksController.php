@@ -21,14 +21,15 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-       /*  $validated = $request->validate([
+        $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
+            'user_id' => ['required', 'exists:users,id'],
         ]);
 
         $task = Task::create($validated);
 
-        return response()->json($task, 201); */
+        return response()->json($task, 201);
     }
 
     /**
@@ -36,7 +37,7 @@ class TasksController extends Controller
      */
     public function show(string $id)
     {
-       /*  return response()->json(Task::findOrFail($id)); */
+        return response()->json(Task::findOrFail($id));
     }
 
     /**
@@ -44,7 +45,7 @@ class TasksController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        /* $task = Task::findOrFail($id);
+        $task = Task::findOrFail($id);
 
         $validated = $request->validate([
             'name' => ['sometimes', 'string', 'max:255'],
@@ -53,7 +54,7 @@ class TasksController extends Controller
 
         $task->update($validated);
 
-        return response()->json($task); */
+        return response()->json($task);
     }
 
     /**
@@ -61,8 +62,8 @@ class TasksController extends Controller
      */
     public function destroy(string $id)
     {
-       /*  Task::findOrFail($id)->delete();
+        Task::findOrFail($id)->delete();
 
-        return response()->json(null, 204); */
+        return response()->json(null, 204);
     }
 }

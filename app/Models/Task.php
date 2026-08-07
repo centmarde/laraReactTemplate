@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    protected $table = 'task';
+    protected $table = 'tasks';
 
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'name',
         'description',
+        'user_id',
     ];
 }
