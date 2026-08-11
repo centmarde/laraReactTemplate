@@ -295,8 +295,13 @@ const TransactionCrudView = () => {
                             >
                                 <div>
                                     <div className="font-semibold">
-                                        #{transactionUser.id} — Transaction #
-                                        {transactionUser.transaction_id}
+                                        #{transactionUser.id} — Transaction:{" "}
+                                        {transactions.find(
+                                            (t) =>
+                                                t.id ===
+                                                transactionUser.transaction_id,
+                                        )?.name ??
+                                            `#${transactionUser.transaction_id}`}
                                     </div>
                                     <div className="text-sm text-gray-600">
                                         {transactionUser.user
