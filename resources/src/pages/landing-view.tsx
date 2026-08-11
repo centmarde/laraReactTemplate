@@ -1,5 +1,6 @@
 import TaskCrudView from "../components/task-crud-widget";
 import UserCrudView from "../components/user-crud-widget";
+import TransactionCrudView from "../components/transaction-crud-widget";
 
 const LandingView = () => {
     return (
@@ -15,10 +16,13 @@ const LandingView = () => {
                 <section className="rounded border bg-white p-4 shadow-sm">
                     <UserCrudView />
                 </section>
+                <section className="rounded border bg-white p-4 shadow-sm">
+                    <TransactionCrudView />
+                </section>
             </div>
         </div>
     );
 };
 
 export default LandingView;
-export { TaskCrudView, UserCrudView };
+export { TaskCrudView, UserCrudView, TransactionCrudView };

@@ -18,7 +18,7 @@ class TransactionUserController extends Controller
             'user'
         ])->get();
 
-        return response()->json($transactionUsers);
+        return response()->json(TransactionUser::with('user:id,name')->get());
     }
 
     /**
