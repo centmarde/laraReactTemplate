@@ -26,10 +26,17 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'firstname' => fake()->firstName(),
+            'lastname' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'country' => fake()->country(),
+            'state_province' => fake()->state(),
+            'city' => fake()->city(),
+            'postal_zip' => fake()->postcode(),
+            'is_2fa_enabled' => false,
         ];
     }
 

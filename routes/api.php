@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Api\TasksController;
 use App\Http\Controllers\Api\TransactionsController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\VerifyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TransactionUserController;
@@ -10,6 +13,19 @@ use App\Http\Controllers\Api\UserContoller;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// Public authentication routes.
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+// Authenticated routes.
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/verify/email', [VerifyController::class, 'email_code']);
+    Route::post('/verify/sms', [VerifyController::class, 'sms_code']);
+    Route::post('/forgot-password', [PasswordController::class, 'forgot']);
+    Route::post('/reset-password', [PasswordController::class, 'reset']);
 });
 
 // Route::controller(TasksController::class)->group(function () {
