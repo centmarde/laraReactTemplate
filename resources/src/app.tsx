@@ -1,13 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import LandingView from "./pages/landing-view";
+import { createRoot } from "react-dom/client";
+import AppRouter from "./routes";
 
 const root = document.getElementById("app");
 
 if (root) {
-    ReactDOM.createRoot(root).render(
-        <React.StrictMode>
-            <LandingView />
-        </React.StrictMode>,
-    );
+    createRoot(root).render(<AppRouter />);
 }
